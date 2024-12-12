@@ -1,1 +1,46 @@
-# Bard_API
+# Bard API | Playlist Manager API
+
+## 📖  Description
+
+Project of an advanced playlist management api in Spring Boot, developed to store and organize information about songs, playlists, and user preferences.<br/>
+
+## 🛠️ Features
+
+- Create your own playlist
+- Add songs to each created playlist, with name, artist, album, and duration
+- Delete playlists by name
+- Retrieve the playlist, including the songs it contains and its total duration and song informations
+<br/>
+
+## 📡 Technologies used 
+<div align="center"> 
+<img align="left" alt="Java" height="30" width="30" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg">
+<img align="left" alt="Git" height="30" width="30" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg">
+<img align="left" alt="Intellij" height="30" width="30" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/intellij/intellij-original.svg">
+<img align="left" alt="Spring" height="30" width="30" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg">
+
+</div>
+<br/><br/>
+
+## ⏳ Initialization
+
+This project was developed in a Linux environment, using Ubuntu 22 and the technologies mentioned earlier. If you are using a different operating system, the initial project setup may vary slightly, so we recommend you check the links provided below:
+
+The environment preparation consists of installing the technologies mentioned above according to your operating system.
+
+To install Git, visit: [Git Download](https://github.com/git-guides/install-git)
+
+To install IntelliJ IDEA, visit: [IntelliJ IDEA Download](https://www.jetbrains.com/pt-br/idea/download/)
+<br/>
+
+## 🔮 Future Implementations
+
+1. Implement a Database (MySQL)
+2. Implement a functional music player (with MP3 and WAV music formats)
+<br/>
+
+## 🔎 Project Status
+
+![In Development Badge](https://img.shields.io/badge/Status-In%20Development-green)
+
+<br/>
