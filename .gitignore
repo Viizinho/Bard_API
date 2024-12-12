@@ -1,37 +1,46 @@
-HELP.md
+# Arquivos do Maven
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-.mvn/
-mvnw
-*.xml
-mvnw.cmd
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
 *.iml
+.mvn/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Arquivos do IntelliJ IDEA
 *.ipr
+*.iws
+.idea/
+out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Arquivos do Eclipse
+*.metadata
+*.classpath
+*.project
+.settings/
 
-### VS Code ###
-.vscode/
+# Arquivos gerados pelo sistema operacional
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.swp
+*~.nib
+*.orig
+
+# Arquivos binários
+bin/
+
+# Arquivos de cache
+*.cache
+*.stackdump
+
+# Arquivos gerados pelo Maven Wrapper
+mvnw
+mvnw.cmd
