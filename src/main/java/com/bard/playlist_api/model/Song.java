@@ -1,20 +1,17 @@
 package com.bard.playlist_api.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-@Entity
 public class Song {
 
-    @Id
     private String title;
     private String artist;
     private String album;
     private int duration;
 
+    // Construtor padrão
     public Song() {
     }
 
+    // Construtor com argumentos
     public Song(String title, String artist, String album, int duration) {
         this.title = title;
         this.artist = artist;
@@ -22,6 +19,7 @@ public class Song {
         this.duration = duration;
     }
 
+    // Getters e Setters
     public String getTitle() {
         return title;
     }
@@ -52,5 +50,15 @@ public class Song {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", album='" + album + '\'' +
+                ", duration=" + duration +
+                '}';
     }
 }

@@ -1,8 +1,12 @@
 package com.bard.playlist_api.service;
 
 import com.bard.playlist_api.model.Song;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,102 +15,76 @@ import java.util.Map;
 @Service
 public class PlaylistService {
 
+    private static final String DATA_FILE = "data/playlists.json";
     private Map<String, List<Song>> playlists = new HashMap<>();
 
+    public PlaylistService() {
+        loadFromFile(); // Carrega playlists ao iniciar o serviço
+    }
+
     public void createPlaylist(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            System.out.println("Invalid playlist name. Please provide a valid name.");
-            return;
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Playlist name cannot be blank");
         }
-
         if (playlists.containsKey(name)) {
-            System.out.println("Playlist already exists: " + name);
-            return;
+            throw new IllegalArgumentException("Playlist already exists: " + name);
         }
-
         playlists.put(name, new ArrayList<>());
+        saveToFile();
         System.out.println("Playlist created: " + name);
     }
 
     public void deletePlaylist(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            System.out.println("Invalid playlist name. Please provide a valid name.");
-            return;
-        }
-
         if (!playlists.containsKey(name)) {
-            System.out.println("Playlist not found: " + name);
-            return;
+            throw new IllegalArgumentException("Playlist does not exist: " + name);
         }
-
         playlists.remove(name);
+        saveToFile();
         System.out.println("Playlist deleted: " + name);
     }
 
     public List<Song> getPlaylist(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            System.out.println("Invalid playlist name. Please provide a valid name.");
-            return new ArrayList<>();
-        }
-
-        if (!playlists.containsKey(name)) {
-            System.out.println("Playlist not found: " + name);
-            return new ArrayList<>();
-        }
-
-        return playlists.get(name);
+        return playlists.getOrDefault(name, new ArrayList<>());
     }
 
     public void addSongToPlaylist(String playlistName, Song song) {
-        if (playlistName == null || playlistName.trim().isEmpty()) {
-            System.out.println("Invalid playlist name. Please provide a valid name.");
-            return;
-        }
-
         if (!playlists.containsKey(playlistName)) {
-            System.out.println("Playlist not found: " + playlistName);
-            return;
+            throw new IllegalArgumentException("Playlist does not exist: " + playlistName);
         }
-
-        if (song == null || song.getTitle() == null || song.getTitle().trim().isEmpty()) {
-            System.out.println("Invalid song details. Please provide a valid song title.");
-            return;
-        }
-
-        if (song.getDuration() <= 0) {
-            System.out.println("Invalid song duration. Duration must be positive.");
-            return;
-        }
-
         playlists.get(playlistName).add(song);
+        saveToFile();
         System.out.println("Song added to playlist: " + playlistName);
     }
 
-
     public void deleteSongFromPlaylist(String playlistName, String songTitle) {
-        if (playlistName == null || playlistName.trim().isEmpty()) {
-            System.out.println("Invalid playlist name. Please provide a valid name.");
-            return;
-        }
-
         if (!playlists.containsKey(playlistName)) {
-            System.out.println("Playlist not found: " + playlistName);
-            return;
+            throw new IllegalArgumentException("Playlist does not exist: " + playlistName);
         }
+        playlists.get(playlistName).removeIf(song -> song.getTitle().equalsIgnoreCase(songTitle));
+        saveToFile();
+        System.out.println("Song removed from playlist: " + playlistName);
+    }
 
-        if (songTitle == null || songTitle.trim().isEmpty()) {
-            System.out.println("Invalid song title. Please provide a valid song title.");
-            return;
-        }
-
-        List<Song> playlist = playlists.get(playlistName);
-        boolean removed = playlist.removeIf(song -> song.getTitle().equalsIgnoreCase(songTitle));
-
-        if (removed) {
-            System.out.println("Song removed from playlist: " + playlistName);
-        } else {
-            System.out.println("Song not found in playlist: " + playlistName);
+    private void saveToFile() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            File file = new File(DATA_FILE);
+            file.getParentFile().mkdirs(); // Garante que a pasta "data/" exista
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, playlists);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
+    private void loadFromFile() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            File file = new File(DATA_FILE);
+            if (file.exists()) {
+                playlists = mapper.readValue(file, new TypeReference<Map<String, List<Song>>>() {});
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

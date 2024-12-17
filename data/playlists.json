@@ -1,0 +1,13 @@
+{
+  "My Playlist" : [ {
+    "title" : "Song1",
+    "artist" : "Artist1",
+    "album" : "Album1",
+    "duration" : 300
+  }, {
+    "title" : "Song2",
+    "artist" : "Artist2",
+    "album" : "Album2",
+    "duration" : 120
+  } ]
+}

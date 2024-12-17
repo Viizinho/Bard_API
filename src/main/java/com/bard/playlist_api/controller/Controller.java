@@ -34,8 +34,8 @@ public class Controller {
         playlistService.addSongToPlaylist(playlistName, song);
     }
 
-    @DeleteMapping("/{playlistName}/songs")
-    public void deleteSongFromPlaylist(@PathVariable String playlistName, @RequestBody Song song) {
-        playlistService.deleteSongFromPlaylist(playlistName, song.getTitle());
+    @DeleteMapping("/{playlistName}/songs/{songTitle}")
+    public void deleteSongFromPlaylist(@PathVariable String playlistName, @PathVariable String songTitle) {
+        playlistService.deleteSongFromPlaylist(playlistName, songTitle);
     }
 }
